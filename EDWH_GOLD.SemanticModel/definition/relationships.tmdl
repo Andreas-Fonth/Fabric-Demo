@@ -40,3 +40,12 @@ relationship 6ecde398-1634-b8ab-914b-468486b4e1c5
 	fromColumn: Dim_BillOfMaterials.ParentProductID
 	toColumn: Dim_SalesPricing.ParentProductID
 
+relationship e67cbf23-2980-1bcc-f6d2-51fa55c2f185
+	fromColumn: inputpreise.ComponentProductID
+	toColumn: bom.ComponentProductID
+
+relationship b9539016-8be8-f9ba-e59c-856a70de8a21
+	toCardinality: many
+	fromColumn: FactOrders.ProductID
+	toColumn: bom.ParentProductID
+

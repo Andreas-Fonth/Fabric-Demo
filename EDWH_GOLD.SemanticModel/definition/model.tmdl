@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["DirectLake - wh_demo"]
+annotation PBI_QueryOrder = ["DirectLake - wh_demo","DirectLake - lh_demo"]
 
 annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit"]
 
@@ -21,4 +21,6 @@ ref table FactOrders
 ref table Dim_PurchasePricing
 ref table Dim_SalesPricing
 ref table Dim_BillOfMaterials
+ref table inputpreise
+ref table bom
 

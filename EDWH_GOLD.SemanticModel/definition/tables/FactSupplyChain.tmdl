@@ -153,19 +153,24 @@ table FactSupplyChain
 
 		annotation SummarizationSetBy = Automatic
 
-	column AvgLeadTimeDays
+	column _xxx_
 		dataType: decimal
-		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
 		lineageTag: b9f53368-514b-4d9b-924d-e10ba2738c0b
 		sourceLineageTag: AvgLeadTimeDays
-		summarizeBy: sum
+		summarizeBy: average
 		sourceColumn: AvgLeadTimeDays
 
 		changedProperty = IsHidden
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = FormatString
 
-		annotation PBI_FormatHint = {"currencyCulture":"de"}
+		changedProperty = SummarizeBy
+
+		changedProperty = Name
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column MaxDelayDays
 		dataType: int64
