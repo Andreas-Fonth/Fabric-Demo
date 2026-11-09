@@ -3,7 +3,7 @@
   "version": "4.0",
   "datasetReference": {
     "byPath": {
-      "path": "../EDWH_Gold_DirectLake.SemanticModel"
+      "path": "../EDWH_GOLD.SemanticModel"
     }
   }
 }

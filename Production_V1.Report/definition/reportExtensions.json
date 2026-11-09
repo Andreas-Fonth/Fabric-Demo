@@ -14,6 +14,31 @@
           }
         }
       ]
+    },
+    {
+      "name": "Dim_SalesPricing",
+      "measures": [
+        {
+          "name": "Color_Sales_vs_SPLY",
+          "dataType": "Double",
+          "expression": "\nVAR _Current = [Sales]\nVAR _Previous = [Sales SPLY]\nRETURN\n    SWITCH(\n        TRUE(),\n        ISBLANK(_Current) || ISBLANK(_Previous), BLANK(),\n        _Current >= _Previous, \"#D1FAE5\",  -- Dezentes Soft-Grün (Aktueller Monat >= Vorjahresmonat)\n        \"#FEE2E2\"                         -- Dezentes Soft-Rot (Aktueller Monat < Vorjahresmonat)\n    )",
+          "hidden": true,
+          "formatString": "General Number",
+          "references": {
+            "measures": [
+              {
+                "schema": "extension",
+                "entity": "DimCustomer",
+                "name": "Sales"
+              },
+              {
+                "entity": "FactOrders",
+                "name": "Sales SPLY"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

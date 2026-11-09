@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "d7e1cd85e4084980e336",
   "position": {
-    "x": 0,
-    "y": 139.51948019658383,
+    "x": 12.220684396781065,
+    "y": 20.367807327968439,
     "z": 1000,
-    "height": 827.95136788191712,
-    "width": 1215.9580974797159,
+    "height": 883.96283803383028,
+    "width": 1528.6039399640315,
     "tabOrder": 1000
   },
   "visual": {
@@ -51,17 +51,42 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Dim_SalesPricing"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_SalesPricing"
+                        }
+                      },
+                      "Hierarchy": "Category Hierarchie"
                     }
                   },
-                  "Property": "Category"
+                  "Level": "Category"
                 }
               },
-              "queryRef": "Dim_SalesPricing.Category",
-              "nativeQueryRef": "Category",
+              "queryRef": "Dim_SalesPricing.Category Hierarchie.Category",
+              "nativeQueryRef": "Category Hierarchie Category",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_SalesPricing"
+                        }
+                      },
+                      "Hierarchy": "Category Hierarchie"
+                    }
+                  },
+                  "Level": "ProductName"
+                }
+              },
+              "queryRef": "Dim_SalesPricing.Category Hierarchie.ProductName",
+              "nativeQueryRef": "Category Hierarchie ProductName",
               "active": true
             }
           ]
@@ -81,6 +106,20 @@
               },
               "queryRef": "FactOrders.Sales",
               "nativeQueryRef": "Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactOrders"
+                    }
+                  },
+                  "Property": "Sales SPLY"
+                }
+              },
+              "queryRef": "FactOrders.Sales SPLY",
+              "nativeQueryRef": "Sales SPLY"
             }
           ]
         }
@@ -133,6 +172,27 @@
             }
           ]
         }
+      },
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Dim_SalesPricing.Category Hierarchie.Category"
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "Dim_SalesPricing.Category Hierarchie.ProductName"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
       }
     ],
     "objects": {
@@ -246,6 +306,51 @@
             }
           }
         }
+      ],
+      "values": [
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "FactOrders.Sales"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dim_SalesPricing"
+                        }
+                      },
+                      "Property": "Color_Sales_vs_SPLY"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 0
+                }
+              }
+            ],
+            "metadata": "FactOrders.Sales"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -264,5 +369,68 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "1c720e7d077b51858828",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dim_SalesPricing"
+                  }
+                },
+                "Hierarchy": "Category Hierarchie"
+              }
+            },
+            "Level": "Category"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Dim_SalesPricing",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Category"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Rennräder'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "Drill"
+      }
+    ]
   }
 }
