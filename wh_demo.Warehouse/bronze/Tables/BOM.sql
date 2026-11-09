@@ -1,10 +1,9 @@
-CREATE TABLE [bronze].[BOM] (
+CREATE TABLE [bronze].[bom] (
 
-	[ParentProductID] varchar(8000) NULL, 
-	[ComponentProductID] varchar(8000) NULL, 
-	[QuantityPerUnit] varchar(8000) NULL, 
-	[UnitOfMeasure] varchar(8000) NULL, 
-	[ValidFrom] varchar(8000) NULL, 
-	[ValidTo] varchar(8000) NULL, 
-	[ScenarioVersion] varchar(8000) NULL
+	[ProductID] varchar(8000) NULL, 
+	[PartID] varchar(8000) NULL, 
+	[QuantityPerProduct] varchar(8000) NULL, 
+	[Unit] varchar(8000) NULL, 
+	[IngestionDateTime] varchar(8000) NULL, 
+	[SourceFileName] varchar(250) NULL
 );
