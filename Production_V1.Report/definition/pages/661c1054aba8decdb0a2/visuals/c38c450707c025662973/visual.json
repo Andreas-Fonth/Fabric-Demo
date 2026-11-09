@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "c38c450707c025662973",
   "position": {
     "x": 12.752077529157255,
@@ -59,34 +59,6 @@
             },
             {
               "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactProduction"
-                    }
-                  },
-                  "Property": "Total Planed Quantity"
-                }
-              },
-              "queryRef": "FactProduction.Total Planed Quantity",
-              "nativeQueryRef": "Total Planed Quantity"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactProduction"
-                    }
-                  },
-                  "Property": "Total Produced Quantity"
-                }
-              },
-              "queryRef": "FactProduction.Total Produced Quantity",
-              "nativeQueryRef": "Total Produced Quantity"
-            },
-            {
-              "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
@@ -98,6 +70,34 @@
               },
               "queryRef": "Dim_SalesPricing.StandardSalesPrice",
               "nativeQueryRef": "StandardSalesPrice"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactOrders"
+                    }
+                  },
+                  "Property": "Sales"
+                }
+              },
+              "queryRef": "FactOrders.Sales",
+              "nativeQueryRef": "Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactOrders"
+                    }
+                  },
+                  "Property": "Sim_COGS"
+                }
+              },
+              "queryRef": "FactOrders.Sim_COGS",
+              "nativeQueryRef": "Sim_COGS"
             }
           ]
         }
@@ -205,7 +205,8 @@
             "Property": "Total Planed Quantity"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "d1859b48cad0c3006809",
@@ -220,7 +221,8 @@
             "Property": "Total Produced Quantity"
           }
         },
-        "type": "Advanced"
+        "type": "Advanced",
+        "howCreated": "User"
       },
       {
         "name": "c67ee2c7431469009adc",

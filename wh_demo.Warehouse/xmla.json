@@ -1699,130 +1699,6 @@
         ]
       },
       {
-        "name": "FactBOM",
-        "sourceLineageTag": "[gold].[FactBOM]",
-        "columns": [
-          {
-            "name": "ProductID",
-            "dataType": "string",
-            "sourceColumn": "ProductID",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "ProductID",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "PartID",
-            "dataType": "string",
-            "sourceColumn": "PartID",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "PartID",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "QuantityPerProduct",
-            "dataType": "decimal",
-            "sourceColumn": "QuantityPerProduct",
-            "sourceProviderType": "decimal",
-            "sourceLineageTag": "QuantityPerProduct",
-            "summarizeBy": "sum",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "Unit",
-            "dataType": "string",
-            "sourceColumn": "Unit",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "Unit",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "SourceFileName",
-            "dataType": "string",
-            "sourceColumn": "SourceFileName",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "SourceFileName",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "IngestionDateTime",
-            "dataType": "dateTime",
-            "sourceColumn": "IngestionDateTime",
-            "formatString": "General Date",
-            "sourceProviderType": "datetime2",
-            "sourceLineageTag": "IngestionDateTime",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "LoadedToGoldDateTime",
-            "dataType": "dateTime",
-            "sourceColumn": "LoadedToGoldDateTime",
-            "formatString": "General Date",
-            "sourceProviderType": "datetime2",
-            "sourceLineageTag": "LoadedToGoldDateTime",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          }
-        ],
-        "partitions": [
-          {
-            "name": "{{Partition_Name}}",
-            "mode": "directLake",
-            "source": {
-              "type": "entity",
-              "entityName": "FactBOM",
-              "expressionSource": "DatabaseQuery",
-              "schemaName": "gold"
-            }
-          }
-        ],
-        "annotations": [
-          {
-            "name": "IsTableInBiModel",
-            "value": "False"
-          }
-        ]
-      },
-      {
         "name": "FactOrders",
         "sourceLineageTag": "[gold].[FactOrders]",
         "columns": [
@@ -2387,11 +2263,12 @@
             ]
           },
           {
-            "name": "AvgLeadTimeDays",
-            "dataType": "decimal",
-            "sourceColumn": "AvgLeadTimeDays",
-            "sourceProviderType": "decimal",
-            "sourceLineageTag": "AvgLeadTimeDays",
+            "name": "MaxDelayDays",
+            "dataType": "int64",
+            "sourceColumn": "MaxDelayDays",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "MaxDelayDays",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -2401,12 +2278,11 @@
             ]
           },
           {
-            "name": "MaxDelayDays",
-            "dataType": "int64",
-            "sourceColumn": "MaxDelayDays",
-            "formatString": "0",
-            "sourceProviderType": "int",
-            "sourceLineageTag": "MaxDelayDays",
+            "name": "LeadTimeDays",
+            "dataType": "decimal",
+            "sourceColumn": "LeadTimeDays",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "LeadTimeDays",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -3343,6 +3219,90 @@
             "source": {
               "type": "entity",
               "entityName": "bom",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "stg"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "input_prices",
+        "sourceLineageTag": "[stg].[input_prices]",
+        "columns": [
+          {
+            "name": "ComponentProductID",
+            "dataType": "string",
+            "sourceColumn": "ComponentProductID",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ComponentProductID",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ScenarioPrice",
+            "dataType": "double",
+            "sourceColumn": "ScenarioPrice",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "ScenarioPrice",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "ScenarioVersion",
+            "dataType": "string",
+            "sourceColumn": "ScenarioVersion",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ScenarioVersion",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ScenarioDescription",
+            "dataType": "string",
+            "sourceColumn": "ScenarioDescription",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ScenarioDescription",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "input_prices",
               "expressionSource": "DatabaseQuery",
               "schemaName": "stg"
             }

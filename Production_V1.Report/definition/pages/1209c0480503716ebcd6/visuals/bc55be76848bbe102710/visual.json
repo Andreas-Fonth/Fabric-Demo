@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "bc55be76848bbe102710",
   "position": {
-    "x": 1232.2523433420906,
-    "y": 489.845766237641,
-    "z": 10000,
-    "height": 298.38837735473766,
-    "width": 447.07337084890725,
-    "tabOrder": 10000
+    "x": 1065.3694581280788,
+    "y": 168.91625615763547,
+    "z": 6000,
+    "height": 430.935960591133,
+    "width": 754.13793103448268,
+    "tabOrder": 6000
   },
   "visual": {
     "visualType": "lineChart",
@@ -23,37 +23,35 @@
                       "Entity": "DimDate"
                     }
                   },
-                  "Property": "YearMonth"
+                  "Property": "Year"
                 }
               },
-              "queryRef": "DimDate.YearMonth",
-              "nativeQueryRef": "YearMonth",
+              "queryRef": "DimDate.Year",
+              "nativeQueryRef": "Year",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "MonthName"
+                }
+              },
+              "queryRef": "DimDate.MonthName",
+              "nativeQueryRef": "MonthName",
               "active": true
             }
           ]
         },
+        "Rows": {
+          "projections": []
+        },
         "Y": {
           "projections": [
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "FactOrders"
-                        }
-                      },
-                      "Property": "TotalQuantity"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(FactOrders.TotalQuantity)",
-              "nativeQueryRef": "TotalQuantity",
-              "displayName": "TotalQuantity"
-            },
             {
               "field": {
                 "Measure": {
@@ -90,19 +88,55 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "FactOrders"
+                    "Entity": "DimDate"
                   }
                 },
-                "Property": "Sales"
+                "Property": "Year"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimDate"
+                  }
+                },
+                "Property": "MonthName"
+              }
+            },
+            "direction": "Ascending"
           }
         ]
       }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 4,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactOrders.Sales SPLY"
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

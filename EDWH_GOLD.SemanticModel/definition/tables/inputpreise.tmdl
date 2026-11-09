@@ -1,0 +1,51 @@
+table inputpreise
+	lineageTag: 27f58d10-1b1c-4e83-bfb9-3d359a260e59
+	sourceLineageTag: [dbo].[inputpreise]
+
+	column ComponentProductID
+		dataType: string
+		lineageTag: addb7b8b-172e-4d36-acd6-048df55a5f66
+		sourceLineageTag: ComponentProductID
+		summarizeBy: none
+		sourceColumn: ComponentProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioPrice
+		dataType: double
+		lineageTag: 5cdd7302-7096-46a3-a56c-b45311582809
+		sourceLineageTag: ScenarioPrice
+		summarizeBy: sum
+		sourceColumn: ScenarioPrice
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ScenarioVersion
+		dataType: string
+		lineageTag: 8427a10c-42f4-4323-976c-cc2aa4a7671b
+		sourceLineageTag: ScenarioVersion
+		summarizeBy: none
+		sourceColumn: ScenarioVersion
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioDescription
+		dataType: string
+		lineageTag: bb924931-7ede-4268-8995-8c9e74fbb782
+		sourceLineageTag: ScenarioDescription
+		summarizeBy: none
+		sourceColumn: ScenarioDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	partition inputpreise = entity
+		mode: directLake
+		source
+			entityName: inputpreise
+			schemaName: dbo
+			expressionSource: 'DirectLake - lh_demo'
+

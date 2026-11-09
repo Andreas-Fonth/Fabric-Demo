@@ -10,7 +10,7 @@ CREATE TABLE [gold].[FactSupplyChain] (
 	[DeliveryDateKey] int NULL, 
 	[TotalShipmentCount] int NULL, 
 	[TotalOrderedQuantity] bigint NULL, 
-	[AvgLeadTimeDays] decimal(10,2) NULL, 
+	[LeadTimeDays] decimal(10,2) NULL, 
 	[MaxDelayDays] int NULL, 
 	[SourceFileName] varchar(255) NULL, 
 	[IngestionDateTime] datetime2(6) NULL, 

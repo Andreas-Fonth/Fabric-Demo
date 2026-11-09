@@ -158,6 +158,53 @@ table FactOrders
 
 		annotation PBI_FormatHint = {"isCustom":true}
 
+	measure Sim_COGS = ```
+			
+			SUMX(
+			    FactOrders,
+			    VAR CurrentProductID = FactOrders[ProductID]
+			    VAR CurrentQty = FactOrders[TotalQuantity]
+			    
+			    -- Hole und berechne die Stücklisten-Komponenten für DIESES Produkt
+			    VAR BOM_Calculation = 
+			        SUMX(
+			            FILTER(bom, bom[ParentProductID] = CurrentProductID),
+			            VAR CompID = bom[ComponentProductID]
+			            VAR QtyPerUnit = bom[QuantityPerUnit]
+			            VAR UnitPrice = 
+			                LOOKUPVALUE(
+			                    inputpreise[ScenarioPrice], 
+			                    inputpreise[ComponentProductID], 
+			                    CompID
+			                )
+			            RETURN
+			                QtyPerUnit * COALESCE(UnitPrice, 0)
+			        )
+			        
+			    RETURN
+			        CurrentQty * COALESCE(BOM_Calculation, 0)
+			)
+			```
+		lineageTag: 90336c51-e0b3-4e03-a554-69d3f2a00456
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Test_Price_Check = ```
+			
+			LOOKUPVALUE(
+			    inputpreise[ScenarioPrice], 
+			    inputpreise[ComponentProductID], 
+			    "TRAGEN_SIE_HIER_EINE_EXAKTE_ID_EIN"
+			)
+			```
+		lineageTag: 39b5cf6f-7b75-41af-8a5c-c12094eed166
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column CustomerID
 		dataType: string
 		lineageTag: 05eb54be-f13d-43cc-a485-67fa4e3d7f7a
