@@ -153,25 +153,6 @@ table FactSupplyChain
 
 		annotation SummarizationSetBy = Automatic
 
-	column _xxx_
-		dataType: decimal
-		lineageTag: b9f53368-514b-4d9b-924d-e10ba2738c0b
-		sourceLineageTag: AvgLeadTimeDays
-		summarizeBy: average
-		sourceColumn: AvgLeadTimeDays
-
-		changedProperty = IsHidden
-
-		changedProperty = FormatString
-
-		changedProperty = SummarizeBy
-
-		changedProperty = Name
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
 	column MaxDelayDays
 		dataType: int64
 		formatString: 0
@@ -183,6 +164,18 @@ table FactSupplyChain
 		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
+
+	column LeadTimeDays
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: d3ce835a-feb3-431e-8ae8-091c5f155ad6
+		sourceLineageTag: LeadTimeDays
+		summarizeBy: sum
+		sourceColumn: LeadTimeDays
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"de"}
 
 	partition FactSupplyChain = entity
 		mode: directLake
