@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Environment",
+    "displayName": "env-ai-analytics",
+    "description": "Umgebung"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "92a75350-9057-a033-4484-2fe3c6b5ec8e"
+  }
+}

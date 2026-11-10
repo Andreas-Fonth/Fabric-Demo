@@ -1,0 +1,76 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "10dde9ec5d3063a47c15",
+  "position": {
+    "x": 512,
+    "y": 392,
+    "z": 2001,
+    "height": 688,
+    "width": 1376,
+    "tabOrder": 2001
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactOrders"
+                    }
+                  },
+                  "Property": "ProductID"
+                }
+              },
+              "queryRef": "FactOrders.ProductID",
+              "nativeQueryRef": "ProductID",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "bom"
+                    }
+                  },
+                  "Property": "ComponentProductID"
+                }
+              },
+              "queryRef": "bom.ComponentProductID",
+              "nativeQueryRef": "ComponentProductID",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactOrders"
+                    }
+                  },
+                  "Property": "Sim_COGS"
+                }
+              },
+              "queryRef": "FactOrders.Sim_COGS",
+              "nativeQueryRef": "Sim_COGS"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
