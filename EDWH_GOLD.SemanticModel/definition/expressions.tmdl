@@ -1,6 +1,6 @@
 expression 'DirectLake - wh_demo' =
 		let
-		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/1d2e0f27-357d-4e97-929a-5f008c66d124/6d1f908a-0adb-46ec-93ae-c8d35d2ff2cf", [HierarchicalNavigation=true])
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/92292900-5f8e-4b1d-9465-2185ce904da9/fd837168-2f33-4ebe-a0d1-4b3c30b034f7", [HierarchicalNavigation=true])
 		in
 		    Source
 	lineageTag: fa17cb68-7507-4e21-99d6-452f918b4053
@@ -11,10 +11,9 @@ expression 'DirectLake - wh_demo' =
 
 expression 'DirectLake - lh_demo' =
 		let
-		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/1d2e0f27-357d-4e97-929a-5f008c66d124/501f84f6-a2fa-48db-a755-0b79def3b26f", [HierarchicalNavigation=true])
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/92292900-5f8e-4b1d-9465-2185ce904da9/9ef7b85c-9f43-4ca1-88b7-4baf64118838", [HierarchicalNavigation=true])
 		in
 		    Source
 	lineageTag: be373a6b-6df4-43e9-a194-6ea08a84ad87
 
 	annotation PBI_IncludeFutureArtifacts = False
-
