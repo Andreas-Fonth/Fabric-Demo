@@ -53,3 +53,5 @@ BEGIN
         @TimeValue = @CurrentTime;
 
 END;
+
+GO

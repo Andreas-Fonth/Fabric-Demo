@@ -1,8 +1,10 @@
 CREATE TABLE [dbo].[Sales] (
-
-	[SalesID] int NULL, 
-	[ProductID] int NULL, 
-	[SalesPerson] varchar(50) NULL, 
-	[OrderQty] int NULL, 
-	[UnitPrice] decimal(19,4) NULL
+    [SalesID]     INT             NULL,
+    [ProductID]   INT             NULL,
+    [SalesPerson] VARCHAR (50)    NULL,
+    [OrderQty]    INT             NULL,
+    [UnitPrice]   DECIMAL (19, 4) NULL
 );
+
+
+GO

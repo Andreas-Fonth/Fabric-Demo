@@ -28,3 +28,5 @@ BEGIN
     FROM stg.[orders];
 
 END;
+
+GO

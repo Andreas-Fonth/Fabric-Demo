@@ -1,14 +1,16 @@
 CREATE TABLE [bronze].[production] (
-
-	[ProductionID] varchar(8000) NULL, 
-	[ProductID] varchar(8000) NULL, 
-	[Plant] varchar(8000) NULL, 
-	[Machine] varchar(8000) NULL, 
-	[PlannedQuantity] varchar(8000) NULL, 
-	[ProducedQuantity] varchar(8000) NULL, 
-	[DefectiveQuantity] varchar(8000) NULL, 
-	[DurationHours] varchar(8000) NULL, 
-	[ProductionDate] varchar(8000) NULL, 
-	[IngestionDateTime] datetime2(6) NULL, 
-	[SourceFileName] varchar(250) NULL
+    [ProductionID]      VARCHAR (8000) NULL,
+    [ProductID]         VARCHAR (8000) NULL,
+    [Plant]             VARCHAR (8000) NULL,
+    [Machine]           VARCHAR (8000) NULL,
+    [PlannedQuantity]   VARCHAR (8000) NULL,
+    [ProducedQuantity]  VARCHAR (8000) NULL,
+    [DefectiveQuantity] VARCHAR (8000) NULL,
+    [DurationHours]     VARCHAR (8000) NULL,
+    [ProductionDate]    VARCHAR (8000) NULL,
+    [IngestionDateTime] DATETIME2 (6)  NULL,
+    [SourceFileName]    VARCHAR (250)  NULL
 );
+
+
+GO

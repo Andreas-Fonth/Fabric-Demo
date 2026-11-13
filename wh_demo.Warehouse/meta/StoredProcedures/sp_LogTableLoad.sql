@@ -84,3 +84,5 @@ BEGIN
         @CurrentTime  -- Exakter Einfüge-Zeitpunkt der Datenbank-Engine
     );
 END;
+
+GO

@@ -1,7 +1,9 @@
 CREATE TABLE [dbo].[SalesTestSecurity] (
-
-	[OrderID] int NULL, 
-	[SalesRep] varchar(256) NULL, 
-	[Product] varchar(100) NULL, 
-	[Quantity] int NULL
+    [OrderID]  INT           NULL,
+    [SalesRep] VARCHAR (256) NULL,
+    [Product]  VARCHAR (100) NULL,
+    [Quantity] INT           NULL
 );
+
+
+GO

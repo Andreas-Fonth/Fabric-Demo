@@ -1,15 +1,17 @@
 CREATE TABLE [gold].[DimDate] (
-
-	[DateKey] int NOT NULL, 
-	[FullDate] date NOT NULL, 
-	[Year] int NOT NULL, 
-	[Quarter] int NOT NULL, 
-	[Month] int NOT NULL, 
-	[MonthName] varchar(20) NOT NULL, 
-	[Day] int NOT NULL, 
-	[DayOfWeek] int NOT NULL, 
-	[DayName] varchar(20) NOT NULL, 
-	[IsWeekend] bit NOT NULL, 
-	[YearMonthSort] int NULL, 
-	[YearMonth] varchar(7) NULL
+    [DateKey]       INT          NOT NULL,
+    [FullDate]      DATE         NOT NULL,
+    [Year]          INT          NOT NULL,
+    [Quarter]       INT          NOT NULL,
+    [Month]         INT          NOT NULL,
+    [MonthName]     VARCHAR (20) NOT NULL,
+    [Day]           INT          NOT NULL,
+    [DayOfWeek]     INT          NOT NULL,
+    [DayName]       VARCHAR (20) NOT NULL,
+    [IsWeekend]     BIT          NOT NULL,
+    [YearMonthSort] INT          NULL,
+    [YearMonth]     VARCHAR (7)  NULL
 );
+
+
+GO

@@ -33,3 +33,5 @@ BEGIN
 from stg.[supply_chain]
     
 END;
+
+GO

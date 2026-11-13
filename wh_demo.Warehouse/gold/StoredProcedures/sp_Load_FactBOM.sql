@@ -32,3 +32,5 @@ BEGIN
       AND TRIM(bb.[PartID]) <> ''
       AND fb.[ProductID] IS NULL; -- Upsert: Nur neue Produkt-Teil-Beziehungen einfügen
 END;
+
+GO

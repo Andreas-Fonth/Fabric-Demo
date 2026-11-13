@@ -1,10 +1,12 @@
 CREATE TABLE [stg].[Dim_BillOfMaterials] (
-
-	[ParentProductID] varchar(8000) NULL, 
-	[ComponentProductID] varchar(8000) NULL, 
-	[QuantityPerUnit] varchar(8000) NULL, 
-	[UnitOfMeasure] varchar(8000) NULL, 
-	[ValidFrom] varchar(8000) NULL, 
-	[ValidTo] varchar(8000) NULL, 
-	[ScenarioVersion] varchar(8000) NULL
+    [ParentProductID]    VARCHAR (8000) NULL,
+    [ComponentProductID] VARCHAR (8000) NULL,
+    [QuantityPerUnit]    VARCHAR (8000) NULL,
+    [UnitOfMeasure]      VARCHAR (8000) NULL,
+    [ValidFrom]          VARCHAR (8000) NULL,
+    [ValidTo]            VARCHAR (8000) NULL,
+    [ScenarioVersion]    VARCHAR (8000) NULL
 );
+
+
+GO

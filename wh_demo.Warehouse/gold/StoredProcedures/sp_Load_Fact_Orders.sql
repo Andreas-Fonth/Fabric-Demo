@@ -45,3 +45,5 @@ BEGIN
         [ProductID],
         CAST([OrderDate] AS DATE);
 END;
+
+GO
