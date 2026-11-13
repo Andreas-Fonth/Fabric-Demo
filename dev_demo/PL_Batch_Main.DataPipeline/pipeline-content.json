@@ -56,7 +56,7 @@
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "artifactId": "",
               "endpoint": "cj236xyunrauxajdvx7xxjfz6i-jebfvoqin37etof3rzgmnd5xku.datawarehouse.fabric.microsoft.com",
               "workspaceId": "00000000-0000-0000-0000-000000000000"
             },
