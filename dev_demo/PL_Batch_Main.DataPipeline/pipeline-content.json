@@ -77,35 +77,6 @@
         "dependsOn": []
       },
       {
-        "type": "InvokePipeline",
-        "typeProperties": {
-          "parameters": {},
-          "waitOnCompletion": true,
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "pipelineId": "34e54804-60c3-b394-4adc-79be58f31f78",
-          "operationType": "InvokeFabricPipeline"
-        },
-        "externalReferences": {
-          "connection": "f8daaacf-69b1-4191-81f8-8f905d575198"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Invoke pipeline1",
-        "dependsOn": [
-          {
-            "activity": "LOG_RUN_START",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
         "type": "SqlServerStoredProcedure",
         "typeProperties": {
           "storedProcedureName": "[meta].[sp_LogEvent]",
@@ -186,7 +157,7 @@
         "name": "LOG_RUN_SUCCESS",
         "dependsOn": [
           {
-            "activity": "Invoke pipeline1",
+            "activity": "LOG_RUN_START",
             "dependencyConditions": [
               "Succeeded"
             ]
