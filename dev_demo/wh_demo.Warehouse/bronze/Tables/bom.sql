@@ -6,6 +6,3 @@ CREATE TABLE [bronze].[bom] (
     [IngestionDateTime]  VARCHAR (8000) NULL,
     [SourceFileName]     VARCHAR (250)  NULL
 );
-
-
-GO
