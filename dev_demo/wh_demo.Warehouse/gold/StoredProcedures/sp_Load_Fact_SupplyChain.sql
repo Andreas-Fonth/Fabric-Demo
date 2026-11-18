@@ -61,5 +61,3 @@ BEGIN
         CAST([OrderDate] AS DATE),
         CAST([DeliveryDate] AS DATE);
 END;
-
-GO
