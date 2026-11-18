@@ -4,6 +4,3 @@ CREATE TABLE [dbo].[SalesTestSecurity] (
     [Product]  VARCHAR (100) NULL,
     [Quantity] INT           NULL
 );
-
-
-GO
