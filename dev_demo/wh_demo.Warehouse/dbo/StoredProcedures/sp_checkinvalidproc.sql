@@ -1,4 +1,4 @@
-CREATE   Procedure dbo.sp_checkinvalidproc
+CREATE OR ALTER Procedure dbo.sp_checkinvalidproc
 AS
 BEGIN
 -- 1. Tabelle für die Validierungsergebnisse vorbereiten
@@ -48,7 +48,8 @@ BEGIN
         FROM #ProcedureQueue 
         WHERE RowID = @CurrentRow;
 
-        SET @ExecSQL = 'EXEC ' + QUOTENAME(@SchemaName) + '.' + QUOTENAME(@ProcName);
+        -- Syntaxfehler behoben: Sauberer Aufruf für sp_executesql
+        SET @ExecSQL = N'EXEC ' + QUOTENAME(@SchemaName) + N'.' + QUOTENAME(@ProcName) + N';';
 
         -- Jede Prozedur läuft in einer isolierten Test-Transaktion
         BEGIN TRY
@@ -103,7 +104,4 @@ DROP TABLE IF EXISTS #ProcedureQueue;
 DROP TABLE IF EXISTS #ValidationResults;
 
 END;
-
---exec dbo.sp_checkinvalidproc;
-
 GO
