@@ -11,6 +11,3 @@ CREATE TABLE [bronze].[production] (
     [IngestionDateTime] DATETIME2 (6)  NULL,
     [SourceFileName]    VARCHAR (250)  NULL
 );
-
-
-GO
