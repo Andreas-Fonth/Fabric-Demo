@@ -1,63 +1,42 @@
-CREATE   PROCEDURE [gold].[sp_Load_Fact_SupplyChain]
+CREATE OR ALTER PROCEDURE [gold].[sp_Load_Fact_SupplyChain]
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- 1. Lokale Variable & Zeitstempel holen
-    DECLARE @CurrentGoldTime DATETIME2(6);
-    EXEC [util].[sp_GetIngestionTime] @IngestionTime = @CurrentGoldTime OUTPUT;
-
-    -- 2. Idempotenz: Zieltabelle leeren
     TRUNCATE TABLE [gold].[FactSupplyChain];
 
-    -- 3. Aggregierte Beladung mit expliziter Typkonvertierung
     INSERT INTO [gold].[FactSupplyChain] (
+        [ShipmentID],
         [ProductID],
         [SupplierName],
         [WarehouseName],
+        [OrderedQuantity],
+        [LeadTimeDays],
+        [DelayDays],
         [OrderStatus],
         [OrderDate],
         [OrderDateKey],
         [DeliveryDate],
         [DeliveryDateKey],
-        [TotalShipmentCount],
-        [TotalOrderedQuantity],
-        [LeadTimeDays],
-        [DelayDays],          -- <--- Hier korrigiert
         [SourceFileName],
         [IngestionDateTime],
         [LoadedToGoldDateTime]
     )
     SELECT 
+        [ShipmentID],
         [ProductID],
-        [Supplier]                                                  AS [SupplierName],
-        [Warehouse]                                                 AS [WarehouseName],
+        [Supplier]                              AS [SupplierName],
+        [Warehouse]                             AS [WarehouseName],
+        CAST([OrderedQuantity] AS INT)          AS [OrderedQuantity],
+        CAST([LeadTimeDays] AS DECIMAL(10,2))   AS [LeadTimeDays],
+        CAST([DelayDays] AS INT)                AS [DelayDays],
         [OrderStatus],
-        
-        CAST([OrderDate] AS DATE)                                   AS [OrderDate],
+        CAST([OrderDate] AS DATE)               AS [OrderDate],
         CONVERT(INT, FORMAT(CAST([OrderDate] AS DATE), 'yyyyMMdd')) AS [OrderDateKey],
-        
-        CAST([DeliveryDate] AS DATE)                                AS [DeliveryDate],
+        CAST([DeliveryDate] AS DATE)            AS [DeliveryDate],
         CONVERT(INT, FORMAT(CAST([DeliveryDate] AS DATE), 'yyyyMMdd')) AS [DeliveryDateKey],
-        
-        -- Kennzahlen (sicheres Casting von VARCHAR zu NUMERIC)
-        COUNT([ShipmentID])                                         AS [TotalShipmentCount],
-        SUM(TRY_CAST([OrderedQuantity] AS BIGINT))                  AS [TotalOrderedQuantity],
-        AVG(TRY_CAST([LeadTimeDays] AS DECIMAL(10,2)))              AS [LeadTimeDays],
-        MAX(TRY_CAST([DelayDays] AS INT))                           AS [DelayDays],          -- <--- Hier korrigiert
-        
-        -- Meta-Felder
-        MAX([SourceFileName])                                       AS [SourceFileName],
-        MAX([IngestionDateTime])                                    AS [IngestionDateTime],
-        @CurrentGoldTime                                            AS [LoadedToGoldDateTime]
-
-    FROM [bronze].[supply_chain]
-    
-    GROUP BY 
-        [ProductID],
-        [Supplier],
-        [Warehouse],
-        [OrderStatus],
-        CAST([OrderDate] AS DATE),
-        CAST([DeliveryDate] AS DATE);
+        [SourceFileName],
+        [IngestionDateTime],
+        CAST(SYSDATETIMEOFFSET() AT TIME ZONE 'W. Europe Standard Time' AS DATETIME2) AS [LoadedToGoldDateTime]
+    FROM [bronze].[supply_chain];
 END;
