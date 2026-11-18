@@ -5,6 +5,3 @@ CREATE TABLE [dbo].[Customers] (
     [Phone]      VARCHAR (20) NULL,
     [Email]      VARCHAR (50) NULL
 );
-
-
-GO
