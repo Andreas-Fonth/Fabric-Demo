@@ -7,6 +7,3 @@ CREATE TABLE [stg].[Dim_SalesPricing] (
     [ValidTo]            VARCHAR (8000) NULL,
     [ScenarioVersion]    VARCHAR (8000) NULL
 );
-
-
-GO
