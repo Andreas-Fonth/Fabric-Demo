@@ -12,6 +12,3 @@ CREATE TABLE [stg].[supply_chain] (
     [IngestionDateTime] VARCHAR (8000) NULL,
     [SourceFileName]    VARCHAR (255)  NULL
 );
-
-
-GO
