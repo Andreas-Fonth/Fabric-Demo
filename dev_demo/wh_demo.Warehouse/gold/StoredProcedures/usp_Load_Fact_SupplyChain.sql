@@ -40,4 +40,3 @@ BEGIN
         CAST(SYSDATETIMEOFFSET() AT TIME ZONE 'W. Europe Standard Time' AS DATETIME2) AS [LoadedToGoldDateTime]
     FROM [bronze].[supply_chain];
 END;
-GO
