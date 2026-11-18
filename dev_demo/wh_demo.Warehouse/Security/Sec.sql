@@ -1,5 +1,0 @@
-CREATE SCHEMA [Sec]
-    AUTHORIZATION [dbo];
-
-
-GO
