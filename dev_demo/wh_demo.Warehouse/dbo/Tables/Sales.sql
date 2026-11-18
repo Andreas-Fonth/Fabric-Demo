@@ -5,6 +5,3 @@ CREATE TABLE [dbo].[Sales] (
     [OrderQty]    INT             NULL,
     [UnitPrice]   DECIMAL (19, 4) NULL
 );
-
-
-GO
