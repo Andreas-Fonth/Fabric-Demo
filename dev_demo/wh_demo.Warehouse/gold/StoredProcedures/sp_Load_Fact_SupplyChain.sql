@@ -23,7 +23,7 @@ BEGIN
         [TotalShipmentCount],
         [TotalOrderedQuantity],
         [LeadTimeDays],
-        [MaxDelayDays],
+        [DelayDays],          -- <--- Hier korrigiert
         [SourceFileName],
         [IngestionDateTime],
         [LoadedToGoldDateTime]
@@ -44,7 +44,7 @@ BEGIN
         COUNT([ShipmentID])                                         AS [TotalShipmentCount],
         SUM(TRY_CAST([OrderedQuantity] AS BIGINT))                  AS [TotalOrderedQuantity],
         AVG(TRY_CAST([LeadTimeDays] AS DECIMAL(10,2)))              AS [LeadTimeDays],
-        MAX(TRY_CAST([DelayDays] AS INT))                           AS [MaxDelayDays],
+        MAX(TRY_CAST([DelayDays] AS INT))                           AS [DelayDays],          -- <--- Hier korrigiert
         
         -- Meta-Felder
         MAX([SourceFileName])                                       AS [SourceFileName],
