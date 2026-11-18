@@ -56,5 +56,3 @@ BEGIN
         CAST([ProductionDate] AS DATE),
         CAST(CONVERT(VARCHAR(8), CAST([ProductionDate] AS DATE), 112) AS INT);
 END;
-
-GO
