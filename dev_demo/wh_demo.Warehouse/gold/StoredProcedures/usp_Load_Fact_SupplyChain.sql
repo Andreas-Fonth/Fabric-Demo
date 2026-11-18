@@ -1,9 +1,8 @@
-CREATE   PROCEDURE [gold].[usp_Load_Fact_SupplyChain]
+CREATE OR ALTER PROCEDURE [gold].[usp_Load_Fact_SupplyChain]
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Idempotenz: Gold vor dem Neuaufbau leeren
     TRUNCATE TABLE [gold].[FactSupplyChain];
 
     INSERT INTO [gold].[FactSupplyChain] (
@@ -28,21 +27,17 @@ BEGIN
         [ProductID],
         [Supplier]                              AS [SupplierName],
         [Warehouse]                             AS [WarehouseName],
-        [OrderedQuantity],
-        [LeadTimeDays],
-        [DelayDays],
+        CAST([OrderedQuantity] AS INT)          AS [OrderedQuantity],
+        CAST([LeadTimeDays] AS DECIMAL(10,2))   AS [LeadTimeDays],
+        CAST([DelayDays] AS INT)                AS [DelayDays],
         [OrderStatus],
         CAST([OrderDate] AS DATE)               AS [OrderDate],
-        -- Erzeugt ein sauberes DateKey Format (z.B. 20260922)
         CONVERT(INT, FORMAT(CAST([OrderDate] AS DATE), 'yyyyMMdd')) AS [OrderDateKey],
-        
         CAST([DeliveryDate] AS DATE)            AS [DeliveryDate],
         CONVERT(INT, FORMAT(CAST([DeliveryDate] AS DATE), 'yyyyMMdd')) AS [DeliveryDateKey],
-        
         [SourceFileName],
         [IngestionDateTime],
-        -- Lokaler deutscher Zeitstempel für den Gold-Upload
         CAST(SYSDATETIMEOFFSET() AT TIME ZONE 'W. Europe Standard Time' AS DATETIME2) AS [LoadedToGoldDateTime]
-
     FROM [bronze].[supply_chain];
 END;
+GO
