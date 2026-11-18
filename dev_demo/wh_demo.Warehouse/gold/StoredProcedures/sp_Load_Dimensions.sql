@@ -47,5 +47,3 @@ BEGIN
     WHERE bsc.[Supplier] IS NOT NULL AND TRIM(bsc.[Supplier]) <> '' AND ds.[SupplierName] IS NULL;
 
 END;
-
-GO
