@@ -7,6 +7,3 @@ CREATE TABLE [bronze].[orders] (
     [IngestionDateTime] VARCHAR (8000) NULL,
     [SourceFileName]    VARCHAR (255)  NULL
 );
-
-
-GO
