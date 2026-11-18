@@ -32,5 +32,3 @@ BEGIN
     FROM stg.[production];
     
 END;
-
-GO
