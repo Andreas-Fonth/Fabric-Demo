@@ -7,6 +7,3 @@ CREATE TABLE [stg].[orders] (
     [IngestionDateTime] VARCHAR (8000) NULL,
     [SourceFileName]    VARCHAR (8000) NULL
 );
-
-
-GO
