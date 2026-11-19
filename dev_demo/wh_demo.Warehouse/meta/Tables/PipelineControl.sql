@@ -1,19 +1,15 @@
 CREATE TABLE [meta].[PipelineControl] (
-    [ID]                    INT           NOT NULL,
-    [SourceSchema]          VARCHAR (50)  NOT NULL,
-    [SourceTable]           VARCHAR (100) NOT NULL,
-    [TargetSchema]          VARCHAR (50)  NOT NULL,
-    [TargetTable]           VARCHAR (100) NOT NULL,
-    [LoadType]              VARCHAR (20)  NOT NULL,
-    [UpdateIngestionColumn] BIT           NOT NULL,
-    [IsActive]              BIT           NOT NULL
+
+	[ID] int NOT NULL, 
+	[SourceSchema] varchar(50) NOT NULL, 
+	[SourceTable] varchar(100) NOT NULL, 
+	[TargetSchema] varchar(50) NOT NULL, 
+	[TargetTable] varchar(100) NOT NULL, 
+	[LoadType] varchar(20) NOT NULL, 
+	[UpdateIngestionColumn] bit NOT NULL, 
+	[IsActive] bit NOT NULL
 );
 
 
-GO
-
-ALTER TABLE [meta].[PipelineControl]
-    ADD CONSTRAINT [PK_PipelineControl] PRIMARY KEY NONCLUSTERED ([ID] ASC) NOT ENFORCED;
-
-
-GO
+GO
+ALTER TABLE [meta].[PipelineControl] ADD CONSTRAINT PK_PipelineControl primary key NONCLUSTERED ([ID]);

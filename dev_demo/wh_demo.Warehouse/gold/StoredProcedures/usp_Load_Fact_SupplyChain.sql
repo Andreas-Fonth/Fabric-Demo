@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE [gold].[usp_Load_Fact_SupplyChain]
+CREATE   PROCEDURE [gold].[usp_Load_Fact_SupplyChain]
 AS
 BEGIN
     SET NOCOUNT ON;

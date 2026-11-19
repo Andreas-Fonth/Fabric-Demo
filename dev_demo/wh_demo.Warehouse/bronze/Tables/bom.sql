@@ -1,8 +1,9 @@
 CREATE TABLE [bronze].[bom] (
-    [ProductID]          VARCHAR (8000) NULL,
-    [PartID]             VARCHAR (8000) NULL,
-    [QuantityPerProduct] VARCHAR (8000) NULL,
-    [Unit]               VARCHAR (8000) NULL,
-    [IngestionDateTime]  VARCHAR (8000) NULL,
-    [SourceFileName]     VARCHAR (250)  NULL
+
+	[ProductID] varchar(8000) NULL, 
+	[PartID] varchar(8000) NULL, 
+	[QuantityPerProduct] varchar(8000) NULL, 
+	[Unit] varchar(8000) NULL, 
+	[IngestionDateTime] varchar(8000) NULL, 
+	[SourceFileName] varchar(250) NULL
 );
