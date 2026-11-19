@@ -2232,13 +2232,27 @@
               }
             ]
           },
+        {
+            "name": "ShipmentID",
+            "dataType": "string",
+            "sourceColumn": "ShipmentID",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ShipmentID",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
           {
-            "name": "TotalShipmentCount",
+            "name": "OrderedQuantity",
             "dataType": "int64",
-            "sourceColumn": "TotalShipmentCount",
+            "sourceColumn": "OrderedQuantity",
             "formatString": "0",
             "sourceProviderType": "int",
-            "sourceLineageTag": "TotalShipmentCount",
+            "sourceLineageTag": "OrderedQuantity",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -2248,27 +2262,12 @@
             ]
           },
           {
-            "name": "TotalOrderedQuantity",
+            "name": "DelayDays",
             "dataType": "int64",
-            "sourceColumn": "TotalOrderedQuantity",
-            "formatString": "0",
-            "sourceProviderType": "bigint",
-            "sourceLineageTag": "TotalOrderedQuantity",
-            "summarizeBy": "sum",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "MaxDelayDays",
-            "dataType": "int64",
-            "sourceColumn": "MaxDelayDays",
+            "sourceColumn": "DelayDays",
             "formatString": "0",
             "sourceProviderType": "int",
-            "sourceLineageTag": "MaxDelayDays",
+            "sourceLineageTag": "DelayDays",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -2277,6 +2276,7 @@
               }
             ]
           },
+          ,
           {
             "name": "LeadTimeDays",
             "dataType": "decimal",
