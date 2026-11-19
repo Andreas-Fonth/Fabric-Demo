@@ -1,3 +1,2807 @@
+
+Gemini
+Neuer Chat
+Mediathek
+Bilder
+Geplant
+Schüler*innen/Studierende
+
+Mehr
+Neues Notebook
+Fabric Controlling Refactoring
+Branch • Branch • Handelswoche im Rückblick
+Branch • Branch • Branch • Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Branch • Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Branch • Herstellkosten-Simulation in Fabric
+Microsoft Fabric Interim-Architekt
+Herstellkosten-Simulation in Fabric
+Branch • Handelswoche im Rückblick
+Handelswoche im Rückblick
+ExxonMobil als Öltanker
+ExxonMobil als Öltanker
+Branch • Branch • Branch • Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Branch • Branch • Branch • Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Branch • Branch • Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+DP-700 Prüfungsvorbereitung Pipelines
+Gen Z Perspektivlosigkeit
+Das innere Kind heilen und stärken
+Rheinmetalls Kurserholung im Fokus
+Lenkerwechsel und Griffwiederverwendung
+Rechtliche Abwehr gegen Abofallen
+Overview of Argeta Spreads Brand
+Strategie bei drohender KI-Blase
+Langfristige Goldanlage: Alternativen zu Futures
+Branch • Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Anschreiben für Oracle-MSSQL-Migrationsprojekt
+Die Datenbasis von KI-Modellen
+Gemini Reader Repetition
+Branch • Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Branch • Branch • Branch • ETL-Pipeline: Dataflow und Merge-Skript
+Ermittlung des beruflichen Status
+Erinnerungen an alte Bandzeiten
+
+Aktivitäten
+Balatonfűzfő, Ungarn
+Anhand deiner IP-Adresse
+Unterhaltung mit Gemini
+CREATE TABLE [gold].[FactOrders] (
+
+[CustomerID] VARCHAR (100) NULL,
+
+[ProductID] VARCHAR (100) NULL,
+
+[OrderDate] DATE NULL,
+
+[OrderDateKey] INT NULL,
+
+[TotalOrderCount] INT NULL,
+
+[TotalQuantity] BIGINT NULL,
+
+[SourceFileName] VARCHAR (255) NULL,
+
+[IngestionDateTime] DATETIME2 (6) NULL,
+
+[LoadedToGoldDateTime] DATETIME2 (6) NOT NULL
+
+);
+
+
+
+
+
+GO
+
+Das ist die Tabellendefinition für [gold].[FactOrders] (und dort steht noch ein abschließendes GO am Ende). Mit FactSupplyChain und TotalShipmentCount hat diese Datei nichts zu tun.
+
+Schauen wir als Nächstes gezielt in sp_Load_Dimensions.sql im Ordner wh_demo.Warehouse/gold/StoredProcedures – suche dort mit Strg + F nach TotalShipmentCount oder FactSupplyChain. Taucht das dort auf?   
+Fabric-Demo-dev_demo.zip
+
+Ich alles durchsucht, woher diese Meldung kommt, also wo er das noch finden kann, außer vielleicht noch im semantischen Modell.
+
+Wenn die SQL-Dateien für die Tabelle und die SupplyChain-Prozeduren bereits sauber sind, bleiben im Repository im Wesentlichen noch zwei Orte, an denen solche alten Spaltennamen (TotalShipmentCount, TotalOrderedQuantity, MaxDelayDays) stecken können:
+
+Im Semantikmodell (EDWH_GOLD.SemanticModel): Neben FactSupplyChain.tmdl (die wir vorhin angepasst haben) könnten in anderen .tmdl-Dateien (z. B. Measures, Beziehungen oder anderen Tabellen) noch Verweise liegen – oder der Workspace-Stand ist beim Sync noch nicht mit dem Git-Commit abgeglichen.   
+Fabric-Demo-dev_demo.zip
++ 3
+
+Im Warehouse-Ordner in xmla.json: Unter wh_demo.Warehouse/xmla.json liegt eine größere Metadaten-/Definitiondatei (112 KB), in der bei Fabric-Warehouses manchmal noch ältere Objekt-/Spalteninformationen gespeichert sind.   
+Fabric-Demo-dev_demo.zip
++ 1
+
+Prüfen wir als Nächstes gezielt die Datei xmla.json im Ordner wh_demo.Warehouse: Öffne sie auf GitHub und suche mit Strg + F nach TotalShipmentCount. Taucht der Begriff dort auf?   
+Fabric-Demo-dev_demo.zip
+
+{
+
+"name": "{{Dataset_Name}}",
+
+"compatibilityLevel": 1606,
+
+"model": {
+
+"name": "{{Dataset_Name}}",
+
+"culture": "en-US",
+
+"collation": "Latin1_General_100_BIN2_UTF8",
+
+"dataAccessOptions": {
+
+"legacyRedirects": true,
+
+"returnErrorValuesAsNull": true
+
+},
+
+"defaultPowerBIDataSourceVersion": "powerBI_V3",
+
+"sourceQueryCulture": "en-US",
+
+"tables": [
+
+{
+
+"name": "BOM(2)",
+
+"sourceLineageTag": "[bronze].[BOM]",
+
+"columns": [
+
+{
+
+"name": "ParentProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ParentProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ParentProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ComponentProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ComponentProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ComponentProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "QuantityPerUnit",
+
+"dataType": "string",
+
+"sourceColumn": "QuantityPerUnit",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "QuantityPerUnit",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "UnitOfMeasure",
+
+"dataType": "string",
+
+"sourceColumn": "UnitOfMeasure",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "UnitOfMeasure",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidFrom",
+
+"dataType": "string",
+
+"sourceColumn": "ValidFrom",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidFrom",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidTo",
+
+"dataType": "string",
+
+"sourceColumn": "ValidTo",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidTo",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ScenarioVersion",
+
+"dataType": "string",
+
+"sourceColumn": "ScenarioVersion",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ScenarioVersion",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "BOM",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "PurchasePricing",
+
+"sourceLineageTag": "[bronze].[PurchasePricing]",
+
+"columns": [
+
+{
+
+"name": "ComponentProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ComponentProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ComponentProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ComponentName",
+
+"dataType": "string",
+
+"sourceColumn": "ComponentName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ComponentName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "StandardPurchasePrice",
+
+"dataType": "string",
+
+"sourceColumn": "StandardPurchasePrice",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "StandardPurchasePrice",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Currency",
+
+"dataType": "string",
+
+"sourceColumn": "Currency",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Currency",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidFrom",
+
+"dataType": "string",
+
+"sourceColumn": "ValidFrom",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidFrom",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidTo",
+
+"dataType": "string",
+
+"sourceColumn": "ValidTo",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidTo",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ScenarioVersion",
+
+"dataType": "string",
+
+"sourceColumn": "ScenarioVersion",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ScenarioVersion",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "PurchasePricing",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SalesPricing",
+
+"sourceLineageTag": "[bronze].[SalesPricing]",
+
+"columns": [
+
+{
+
+"name": "ParentProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ParentProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ParentProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProductName",
+
+"dataType": "string",
+
+"sourceColumn": "ProductName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "StandardSalesPrice",
+
+"dataType": "string",
+
+"sourceColumn": "StandardSalesPrice",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "StandardSalesPrice",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Currency",
+
+"dataType": "string",
+
+"sourceColumn": "Currency",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Currency",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidFrom",
+
+"dataType": "string",
+
+"sourceColumn": "ValidFrom",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidFrom",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ValidTo",
+
+"dataType": "string",
+
+"sourceColumn": "ValidTo",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ValidTo",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ScenarioVersion",
+
+"dataType": "string",
+
+"sourceColumn": "ScenarioVersion",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ScenarioVersion",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "SalesPricing",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "bom",
+
+"sourceLineageTag": "[bronze].[bom]",
+
+"columns": [
+
+{
+
+"name": "ProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "PartID",
+
+"dataType": "string",
+
+"sourceColumn": "PartID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "PartID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "QuantityPerProduct",
+
+"dataType": "string",
+
+"sourceColumn": "QuantityPerProduct",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "QuantityPerProduct",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Unit",
+
+"dataType": "string",
+
+"sourceColumn": "Unit",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Unit",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "IngestionDateTime",
+
+"dataType": "string",
+
+"sourceColumn": "IngestionDateTime",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "IngestionDateTime",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SourceFileName",
+
+"dataType": "string",
+
+"sourceColumn": "SourceFileName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "SourceFileName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "bom",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "orders(1)",
+
+"sourceLineageTag": "[bronze].[orders]",
+
+"columns": [
+
+{
+
+"name": "OrderID",
+
+"dataType": "string",
+
+"sourceColumn": "OrderID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "OrderID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "CustomerID",
+
+"dataType": "string",
+
+"sourceColumn": "CustomerID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "CustomerID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Quantity",
+
+"dataType": "string",
+
+"sourceColumn": "Quantity",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Quantity",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "OrderDate",
+
+"dataType": "string",
+
+"sourceColumn": "OrderDate",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "OrderDate",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "IngestionDateTime",
+
+"dataType": "string",
+
+"sourceColumn": "IngestionDateTime",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "IngestionDateTime",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SourceFileName",
+
+"dataType": "string",
+
+"sourceColumn": "SourceFileName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "SourceFileName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "orders",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "production",
+
+"sourceLineageTag": "[bronze].[production]",
+
+"columns": [
+
+{
+
+"name": "ProductionID",
+
+"dataType": "string",
+
+"sourceColumn": "ProductionID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductionID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Plant",
+
+"dataType": "string",
+
+"sourceColumn": "Plant",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Plant",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Machine",
+
+"dataType": "string",
+
+"sourceColumn": "Machine",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Machine",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "PlannedQuantity",
+
+"dataType": "string",
+
+"sourceColumn": "PlannedQuantity",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "PlannedQuantity",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProducedQuantity",
+
+"dataType": "string",
+
+"sourceColumn": "ProducedQuantity",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProducedQuantity",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "DefectiveQuantity",
+
+"dataType": "string",
+
+"sourceColumn": "DefectiveQuantity",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "DefectiveQuantity",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "DurationHours",
+
+"dataType": "string",
+
+"sourceColumn": "DurationHours",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "DurationHours",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProductionDate",
+
+"dataType": "string",
+
+"sourceColumn": "ProductionDate",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductionDate",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "IngestionDateTime",
+
+"dataType": "dateTime",
+
+"sourceColumn": "IngestionDateTime",
+
+"formatString": "General Date",
+
+"sourceProviderType": "datetime2",
+
+"sourceLineageTag": "IngestionDateTime",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SourceFileName",
+
+"dataType": "string",
+
+"sourceColumn": "SourceFileName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "SourceFileName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "production",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "supply_chain",
+
+"sourceLineageTag": "[bronze].[supply_chain]",
+
+"columns": [
+
+{
+
+"name": "ShipmentID",
+
+"dataType": "string",
+
+"sourceColumn": "ShipmentID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ShipmentID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "ProductID",
+
+"dataType": "string",
+
+"sourceColumn": "ProductID",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "ProductID",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Supplier",
+
+"dataType": "string",
+
+"sourceColumn": "Supplier",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Supplier",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Warehouse",
+
+"dataType": "string",
+
+"sourceColumn": "Warehouse",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Warehouse",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "OrderedQuantity",
+
+"dataType": "string",
+
+"sourceColumn": "OrderedQuantity",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "OrderedQuantity",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "LeadTimeDays",
+
+"dataType": "string",
+
+"sourceColumn": "LeadTimeDays",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "LeadTimeDays",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "DelayDays",
+
+"dataType": "string",
+
+"sourceColumn": "DelayDays",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "DelayDays",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "OrderStatus",
+
+"dataType": "string",
+
+"sourceColumn": "OrderStatus",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "OrderStatus",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "OrderDate",
+
+"dataType": "string",
+
+"sourceColumn": "OrderDate",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "OrderDate",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "DeliveryDate",
+
+"dataType": "string",
+
+"sourceColumn": "DeliveryDate",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "DeliveryDate",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "IngestionDateTime",
+
+"dataType": "string",
+
+"sourceColumn": "IngestionDateTime",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "IngestionDateTime",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SourceFileName",
+
+"dataType": "string",
+
+"sourceColumn": "SourceFileName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "SourceFileName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "supply_chain",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "bronze"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Customers",
+
+"sourceLineageTag": "[dbo].[Customers]",
+
+"columns": [
+
+{
+
+"name": "CustomerID",
+
+"dataType": "int64",
+
+"sourceColumn": "CustomerID",
+
+"formatString": "0",
+
+"sourceProviderType": "int",
+
+"sourceLineageTag": "CustomerID",
+
+"summarizeBy": "sum",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "FirstName",
+
+"dataType": "string",
+
+"sourceColumn": "FirstName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "FirstName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "LastName",
+
+"dataType": "string",
+
+"sourceColumn": "LastName",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "LastName",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Phone",
+
+"dataType": "string",
+
+"sourceColumn": "Phone",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Phone",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+},
+
+{
+
+"name": "Email",
+
+"dataType": "string",
+
+"sourceColumn": "Email",
+
+"sourceProviderType": "varchar",
+
+"sourceLineageTag": "Email",
+
+"summarizeBy": "none",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+]
+
+}
+
+],
+
+"partitions": [
+
+{
+
+"name": "{{Partition_Name}}",
+
+"mode": "directLake",
+
+"source": {
+
+"type": "entity",
+
+"entityName": "Customers",
+
+"expressionSource": "DatabaseQuery",
+
+"schemaName": "dbo"
+
+}
+
+}
+
+],
+
+"annotations": [
+
+{
+
+"name": "IsTableInBiModel",
+
+"value": "False"
+
+}
+
+]
+
+},
+
+{
+
+"name": "SalesTestSecurity",
+
+"sourceLineageTag": "[dbo].[SalesTestSecurity]",
+
+"columns": [
+
+{
+
+"name": "OrderID",
+
+"dataType": "int64",
+
+"sourceColumn": "OrderID",
+
+"formatString": "0",
+
+"sourceProviderType": "int",
+
+"sourceLineageTag": "OrderID",
+
+"summarizeBy": "sum",
+
+"annotations": [
+
+{
+
+"name": "SummarizationSetBy",
+
+"value": "Automatic"
+
+}
+
+
+In dem eingefügten Auszug aus xmla.json stehen nur die Tabellen BOM(2), PurchasePricing, SalesPricing, bom, orders(1), production, supply_chain, Customers und der Anfang von SalesTestSecurity – FactSupplyChain und die alten Spalten (TotalShipmentCount, TotalOrderedQuantity, MaxDelayDays) tauchen in diesem Teil nicht auf (bei supply_chain stehen dort bereits ShipmentID, OrderedQuantity und DelayDays).
+
+Da xmla.json im Repository insgesamt rund 112 KB groß ist, kann der Treffer noch weiter unten in derselben Datei stecken.   
+Fabric-Demo-dev_demo.zip
+
+In der geöffneten xmla.json weitersuchen: Drücke im Browser Strg + F (bzw. Cmd + F) und suche nach TotalShipmentCount oder FactSupplyChain.
+
+Ergebnis prüfen: Falls die Suche in der gesamten xmla.json nichts findet, liegt die Ursache nicht mehr im JSON-Auszug dieser Datei, sondern beim Sync-Stand des Semantikmodells bzw. des Warehouses.
+
+Findet die Suche in xmla.json irgendwo TotalShipmentCount oder FactSupplyChain?
+
+Bitte mich sehen Zeile 236 total shipment count und dann auch noch dieses total ordered quantity.
+
+In dem bisherigen Auszug von xmla.json ist der Text vor Zeile 236 abgeschnitten (die Ausgabe endet mitten in SalesTestSecurity). Deshalb kann ich die exakten Zeilen rund um Zeile 236 in xmla.json hier nicht direkt anzeigen – dort oder weiter unten in xmla.json (112.358 Bytes insgesamt) liegen genau die alten Spaltendefinitionen wie TotalShipmentCount und TotalOrderedQuantity.   
+Fabric-Demo-dev_demo.zip
+
+Du kannst die betroffenen JSON-Blöcke in xmla.json direkt im GitHub-Webinterface anspringen und entfernen.   
+Fabric-Demo-dev_demo.zip
+
+1
+In xmla.json zu Zeile 236 bzw. TotalShipmentCount springen
+Öffne wh_demo.Warehouse/xmla.json auf GitHub, drücke Strg + F (bzw. Cmd + F) und suche nach TotalShipmentCount und TotalOrderedQuantity (oder scrolle zur entsprechenden Stelle im JSON).
+Verification: Die JSON-Objekte für TotalShipmentCount, TotalOrderedQuantity (und ggf. MaxDelayDays) sind im Editor sichtbar.
+
+2
+Die alten Spaltenobjekte sauber aus xmla.json entfernen
+Lösche in xmla.json jeweils das komplette { ... }-Spaltenobjekt für TotalShipmentCount und TotalOrderedQuantity (inklusive Komma, sodass gültiges JSON bleibt – achte darauf, dass nach dem letzten Eintrag vor ] kein überflüssiges Komma steht) und committe die Änderung.
+Verification: GitHub zeigt die Datei ohne Syntaxfehler an, und eine Suche nach TotalShipmentCount sowie TotalOrderedQuantity in xmla.json liefert keine Treffer mehr.
+
+3
+Quellcodeverwaltung in Fabric aktualisieren
+Gehe in deinen Fabric-Workspace, öffne oben rechts die Quellcodeverwaltung und klicke auf Aktualisieren.
+Verification: Der Fehler Table 'FactSupplyChain' columns 'TotalShipmentCount,TotalOrderedQuantity,MaxDelayDays' not found tritt bei wh_demo_04 nicht mehr auf.
+
+Korrektur in Zeile 2236. Name: Total Shipment. Source Column: Total Shipment. Count: Total Shipment Count.
+
+In wh_demo.Warehouse/xmla.json (rund um Zeile 2236) steckt also noch ein Spalteneintrag in der JSON-Struktur, der auf das alte aggregierte Feld TotalShipmentCount verweist. Wenn du dieses JSON-Objekt (und ggf. das passende Objekt für TotalOrderedQuantity / MaxDelayDays daneben) aus xmla.json entfernst, stimmt die Warehouse-Definition wieder mit den granularen Spalten überein.   
+Fabric-Demo-dev_demo.zip
++ 1
+
+1
+Spaltenobjekt in xmla.json rund um Zeile 2236 öffnen
+Öffne wh_demo.Warehouse/xmla.json im GitHub-Webinterface im Bearbeitungsmodus und gehe zu Zeile 2236 (oder suche nach TotalShipmentCount).
+Verification: Du siehst das komplette { ... }-Objekt in der columns-Liste, das zu TotalShipmentCount gehört.
+
+2
+Das Spaltenobjekt sauber löschen und Kommas prüfen
+Lösche das gesamte { ... }-Objekt für TotalShipmentCount (sowie ggf. direkt angrenzende alte Objekte wie TotalOrderedQuantity oder MaxDelayDays) und achte darauf, dass zwischen den verbleibenden Objekten gültige Kommas stehen und nach dem letzten Objekt vor ] kein Komma übrig bleibt.
+Verification: GitHub zeigt keinen JSON-Syntaxfehler an, und eine Suche nach TotalShipmentCount in xmla.json findet keinen Treffer mehr.
+
+3
+Auf GitHub committen und in Fabric aktualisieren
+Klicke oben rechts auf Commit changes..., wechsle dann in deinen Fabric-Workspace und klicke in der Quellcodeverwaltung auf Aktualisieren.
+Verification: Der Fehler Table 'FactSupplyChain' columns 'TotalShipmentCount,TotalOrderedQuantity,MaxDelayDays' not found erscheint nicht mehr.
+
+Treffer! In der jetzt vollständig vorliegenden xmla.json stehen unter "name": "FactSupplyChain" tatsächlich noch die drei alten Spaltenobjekte TotalShipmentCount, TotalOrderedQuantity und MaxDelayDays.   
+xmla.json
+
+Wenn wir diese drei alten Blöcke aus FactSupplyChain entfernen und stattdessen die granularen Spalten ShipmentID, OrderedQuantity und DelayDays im selben JSON-Format einsetzen, passt xmla.json wieder zu [gold].[FactSupplyChain] und den Ladeprozeduren.   
+Fabric-Demo-dev_demo.zip
++ 1
+
+1
+Alte Spaltenobjekte in FactSupplyChain in xmla.json ersetzen
+Öffne wh_demo.Warehouse/xmla.json im GitHub-Webinterface im Bearbeitungsmodus, suche nach "name": "TotalShipmentCount" und ersetze dort die drei Blöcke TotalShipmentCount, TotalOrderedQuantity und MaxDelayDays (direkt nach "name": "WarehouseName") durch diese drei Blöcke – achte genau auf die Kommas zwischen den Objekten:
+
+JSON
+      {
+        "name": "ShipmentID",
+        "dataType": "string",
+        "sourceColumn": "ShipmentID",
+        "sourceProviderType": "varchar",
+        "sourceLineageTag": "ShipmentID",
+        "summarizeBy": "none",
+        "annotations": [
+          {
+            "name": "SummarizationSetBy",
+            "value": "Automatic"
+          }
+        ]
+      },
+      {
+        "name": "OrderedQuantity",
+        "dataType": "int64",
+        "sourceColumn": "OrderedQuantity",
+        "formatString": "0",
+        "sourceProviderType": "int",
+        "sourceLineageTag": "OrderedQuantity",
+        "summarizeBy": "sum",
+        "annotations": [
+          {
+            "name": "SummarizationSetBy",
+            "value": "Automatic"
+          }
+        ]
+      },
+      {
+        "name": "DelayDays",
+        "dataType": "int64",
+        "sourceColumn": "DelayDays",
+        "formatString": "0",
+        "sourceProviderType": "int",
+        "sourceLineageTag": "DelayDays",
+        "summarizeBy": "sum",
+        "annotations": [
+          {
+            "name": "SummarizationSetBy",
+            "value": "Automatic"
+          }
+        ]
+      },
+Verification: TotalShipmentCount, TotalOrderedQuantity und MaxDelayDays kommen in xmla.json gar nicht mehr vor, und GitHub meldet keinen JSON-Syntaxfehler.
+
+2
+Auf GitHub committen
+Klicke oben rechts auf Commit changes... und bestätige den Commit.
+Verification: Die bereinigte xmla.json ist im Repository gespeichert.
+
+3
+Quellcodeverwaltung in Fabric aktualisieren
+Wechsle in deinen Fabric-Workspace, öffne oben rechts die Quellcodeverwaltung und klicke auf Aktualisieren.
+Verification: Der Fehler Table 'FactSupplyChain' columns 'TotalShipmentCount,TotalOrderedQuantity,MaxDelayDays' not found tritt nicht mehr auf.
+
+TotalShipmentCount, TotalOrderedQuantity, MaxDelayDays ersetzen durch?
+
+Die drei alten Spalten ersetzt du durch die granularen Spalten aus [gold].[FactSupplyChain]:
+
+TotalShipmentCount → ShipmentID   
+xmla.json
+
+TotalOrderedQuantity → OrderedQuantity   
+xmla.json
+
+MaxDelayDays → DelayDays   
+xmla.json
+
+In xmla.json stehen diese drei Spaltenblöcke direkt nach "name": "WarehouseName" und vor "name": "LeadTimeDays".   
+xmla.json
+
+Konkrete Schritte in xmla.json
+Alte Blöcke löschen: Entferne in FactSupplyChain die drei { ... }-Objekte für TotalShipmentCount, TotalOrderedQuantity und MaxDelayDays.   
+xmla.json
+
+Neue Blöcke einsetzen: Füge direkt nach dem { ... }-Objekt von WarehouseName (mit Komma dahinter) diese drei Blöcke ein:   
+xmla.json
+
+JSON
+          {
+            "name": "ShipmentID",
+            "dataType": "string",
+            "sourceColumn": "ShipmentID",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ShipmentID",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "OrderedQuantity",
+            "dataType": "int64",
+            "sourceColumn": "OrderedQuantity",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "OrderedQuantity",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DelayDays",
+            "dataType": "int64",
+            "sourceColumn": "DelayDays",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DelayDays",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+Komma zu LeadTimeDays prüfen: Direkt nach DelayDays folgt in xmla.json wieder "name": "LeadTimeDays" – dazwischen muss das Komma stehen, damit das JSON gültig bleibt.   
+xmla.json
+
+Auf GitHub committen und in Fabric aktualisieren: Speichere die Änderung in xmla.json und klicke in der Quellcodeverwaltung auf Aktualisieren.   
+Fabric-Demo-dev_demo.zip
++ 1
+
+Passt das so für dich, oder soll ich dir den kompletten FactSupplyChain-Block aus xmla.json am Stück ausgeben?   
+xmla.json
+
+Das folgende Element konnte nicht aktualisiert werden:
+
+
+
+Überprüfen Sie die technischen Details, um weitere Informationen zu erhalten. Geben Sie diese Details an, wenn Sie sich an den Support wenden.
+
+
+
+wh_demo_04
+
+Details ausblenden
+
+Cluster-URI https://wabi-germany-west-central-primary-redirect.analysis.windows.net/
+
+
+
+Anforderungs-ID 96492a13-8919-4a58-b88d-b932bc21aaba
+
+
+
+Workloadfehlercode DmsPbiServiceUserException
+
+
+
+Workloadfehlermeldung Cannot read object collection with item type 'Column' from json object which is not an array of objects. Check path 'model.tables[17].columns[14]', line 2279, position 19.
+
+
+
+Zeit Thu Nov 19 2026 15:03:31 GMT+0100 (Mitteleuropäische Normalzeit)
+
+Die Fehlermeldung zeigt exakt, wo beim Parsen von xmla.json ein Syntax- bzw. Strukturproblem liegt: Cannot read object collection with item type 'Column' from json object which is not an array of objects. Check path 'model.tables[17].columns[14]', line 2279, position 19.
+
+Das passiert fast immer dann, wenn in der columns-Liste von FactSupplyChain (model.tables[17]) beim Einfügen oder Löschen ein Komma verrutscht ist (z. B. ein Komma zu viel nach dem letzten Element vor ], ein fehlendes Komma zwischen zwei { ... }-Blöcken oder eine versehentlich gelöschte/verschobene eckige oder geschweifte Klammer).
+
+1
+Zeile 2279 in xmla.json öffnen
+Öffne wh_demo.Warehouse/xmla.json im GitHub-Editor und gehe direkt zu Zeile 2279 (im Bereich "name": "FactSupplyChain" -> "columns").
+Verification: Du siehst dort das Spaltenobjekt rund um columns[14] sowie die direkt darüber- und darunterliegenden { ... }-Blöcke.
+
+2
+Kommas und Klammern im columns-Array von FactSupplyChain prüfen
+Prüfe in FactSupplyChain jedes Spaltenobjekt: Zwischen zwei { ... }-Objekten muss genau ein Komma , stehen, und nach dem allerletzten Spaltenobjekt (vor der schließenden eckigen Klammer ] des columns-Arrays) darf kein Komma stehen. Stelle außerdem sicher, dass kein { oder } fehlt.
+Verification: Im GitHub-Editor erscheinen keine roten Syntax-Markierungen mehr, und der Cursor bei Zeile 2279 zeigt auf ein gültiges JSON-Element innerhalb eines Arrays.
+
+3
+Änderung committen und in Fabric aktualisieren
+Speichere die Änderung über Commit changes... auf GitHub und klicke im Fabric-Workspace in der Quellcodeverwaltung erneut auf Aktualisieren.
+Verification: Die Meldung Cannot read object collection with item type 'Column' bei wh_demo_04 verschwindet.
+
+Genau da liegt der Syntaxfehler: In xmla (1).json steht in FactSupplyChain direkt nach dem { ... }-Objekt von DelayDays ein doppeltes Komma (,\n          ,), und davor bei ShipmentID war die Einrückung leicht verschoben. Dadurch ist das columns-Array ungültig und Fabric wirft Cannot read object collection with item type 'Column'.   
+xmla (1).json
++ 1
+
+Hier ist der bereinigte columns-Abschnitt für FactSupplyChain mit exakt einem Komma zwischen allen Einträgen:
+
+JSON
+        "columns": [
+          {
+            "name": "ProductID",
+            "dataType": "string",
+            "sourceColumn": "ProductID",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ProductID",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SupplierName",
+            "dataType": "string",
+            "sourceColumn": "SupplierName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "SupplierName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "WarehouseName",
+            "dataType": "string",
+            "sourceColumn": "WarehouseName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "WarehouseName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "OrderStatus",
+            "dataType": "string",
+            "sourceColumn": "OrderStatus",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "OrderStatus",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "OrderDate",
+            "dataType": "dateTime",
+            "sourceColumn": "OrderDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "OrderDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "OrderDateKey",
+            "dataType": "int64",
+            "sourceColumn": "OrderDateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "OrderDateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DeliveryDate",
+            "dataType": "dateTime",
+            "sourceColumn": "DeliveryDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "DeliveryDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DeliveryDateKey",
+            "dataType": "int64",
+            "sourceColumn": "DeliveryDateKey",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DeliveryDateKey",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SourceFileName",
+            "dataType": "string",
+            "sourceColumn": "SourceFileName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "SourceFileName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "IngestionDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "IngestionDateTime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "IngestionDateTime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "LoadedToGoldDateTime",
+            "dataType": "dateTime",
+            "sourceColumn": "LoadedToGoldDateTime",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "LoadedToGoldDateTime",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ShipmentID",
+            "dataType": "string",
+            "sourceColumn": "ShipmentID",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ShipmentID",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "OrderedQuantity",
+            "dataType": "int64",
+            "sourceColumn": "OrderedQuantity",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "OrderedQuantity",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DelayDays",
+            "dataType": "int64",
+            "sourceColumn": "DelayDays",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DelayDays",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "LeadTimeDays",
+            "dataType": "decimal",
+            "sourceColumn": "LeadTimeDays",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "LeadTimeDays",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+1
+Doppeltes Komma bei DelayDays in xmla.json entfernen
+Öffne wh_demo.Warehouse/xmla.json im GitHub-Editor, gehe zu FactSupplyChain -> columns (rund um Zeile 2279) und lösche das doppelte Komma direkt nach dem DelayDays-Block.
+Verification: Zwischen dem schließenden } von DelayDays und dem öffnenden { von LeadTimeDays steht genau ein einziges Komma ,.
+
+2
+Änderung in xmla.json committen
+Klicke oben rechts auf Commit changes... und bestätige den Commit.
+Verification: Die Datei xmla.json ist im GitHub-Repository ohne Syntaxfehler gespeichert.
+
+3
+Quellcodeverwaltung in Fabric aktualisieren
+Wechsle in den Fabric-Workspace, öffne die Quellcodeverwaltung und klicke auf Aktualisieren.
+Verification: Der Fehler Cannot read object collection with item type 'Column' bei wh_demo_04 verschwindet.
+
+bitte gesamten json ausgeben alsdatei
+
+Your JSON file is ready
+
+JSON-Symbol
+xmla
+ JSON 
+Die vollständige, syntaxgeprüfte xmla.json ist bereit.   
+xmla (1).json
+
+Was in der Datei bereinigt wurde
+Doppeltes Komma entfernt: Das ungültige Komma nach DelayDays im columns-Array von FactSupplyChain ist behoben, sodass die JSON-Struktur gültig ist.   
+xmla (1).json
+
+Granulare Spalten enthalten: In FactSupplyChain sind jetzt ShipmentID, OrderedQuantity und DelayDays enthalten – die alten Felder (TotalShipmentCount, TotalOrderedQuantity, MaxDelayDays) tauchen nicht mehr auf.   
+xmla (1).json
+
+Nächste Schritte
+Datei ins Repository übernehmen: Ersetze wh_demo.Warehouse/xmla.json auf GitHub durch die heruntergeladene Datei und committe die Änderung.   
+xmla.json
++ 1
+
+Fabric-Workspace aktualisieren: Klicke im Workspace in der Quellcodeverwaltung auf Aktualisieren und prüfe, ob wh_demo_04 sauber durchläuft.
+
+
+
+
+
+Gemini ist eine KI und kann Fehler machen, auch bei Informationen über Personen. Datenschutz und GeminiWird in einem neuen Fenster geöffnet
+
+Gemini Reader LogoActivate Gemini Reader
 {
   "name": "{{Dataset_Name}}",
   "compatibilityLevel": 1606,
@@ -2232,7 +5036,7 @@
               }
             ]
           },
-        {
+          {
             "name": "ShipmentID",
             "dataType": "string",
             "sourceColumn": "ShipmentID",
@@ -2276,7 +5080,6 @@
               }
             ]
           },
-          ,
           {
             "name": "LeadTimeDays",
             "dataType": "decimal",
@@ -3827,3 +6630,5 @@
     ]
   }
 }
+xmla.json
+xmla.json wird angezeigt.
