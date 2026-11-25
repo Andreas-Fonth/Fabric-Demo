@@ -14,12 +14,12 @@
             "type": "DataWarehouseTable",
             "schema": [],
             "connectionSettings": {
-              "name": "wh_demo",
+              "name": "wh_demo_04",
               "properties": {
                 "type": "DataWarehouse",
                 "typeProperties": {
-                  "artifactId": "",
-                  "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+                  "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+                  "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
                   "workspaceId": "00000000-0000-0000-0000-000000000000"
                 },
                 "externalReferences": {
@@ -66,12 +66,12 @@
                 "scriptBlockExecutionTimeout": "02:00:00"
               },
               "connectionSettings": {
-                "name": "wh_demo",
+                "name": "wh_demo_04",
                 "properties": {
                   "type": "DataWarehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
                     "workspaceId": "00000000-0000-0000-0000-000000000000"
                   },
                   "externalReferences": {
