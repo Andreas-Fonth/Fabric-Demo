@@ -5,33 +5,18 @@
         "type": "Copy",
         "typeProperties": {
           "source": {
-            "type": "DelimitedTextSource",
-            "formatSettings": {
-              "type": "DelimitedTextReadSettings"
-            },
+            "type": "LakehouseTableSource",
             "additionalColumns": [
               {
                 "name": "SourceFileName",
-                "value": "$$FILENAME"
+                "value": "orders"
               }
             ],
-            "storeSettings": {
-              "type": "AzureBlobStorageReadSettings",
-              "recursive": true,
-              "enablePartitionDiscovery": false
-            },
             "datasetSettings": {
-              "type": "DelimitedText",
+              "type": "LakehouseTable",
               "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "demo",
-                  "fileName": "orders.csv"
-                },
-                "columnDelimiter": ";",
-                "quoteChar": "\"",
-                "escapeChar": "\\",
-                "firstRowAsHeader": true
+                "schema": "dbo",
+                "table": "order"
               },
               "schema": [],
               "connectionSettings": {
@@ -39,9 +24,9 @@
                 "properties": {
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "workspaceId": "1d2e0f27-357d-4e97-929a-5f008c66d124",
-                    "rootFolder": "Files"
+                    "artifactId": "58aebfb8-fbba-4664-b42d-e39de7fe64d4",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681",
+                    "rootFolder": "Tables"
                   },
                   "externalReferences": {
                     "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
@@ -74,13 +59,13 @@
               },
               "schema": [],
               "connectionSettings": {
-                "name": "wh_demo",
+                "name": "wh_demo_04",
                 "properties": {
                   "type": "DataWarehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
-                    "workspaceId": "1d2e0f27-357d-4e97-929a-5f008c66d124"
+                    "artifactId": "ce0a493b-7f62-4c13-bd57-4ea3d7643d6e",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681"
                   },
                   "externalReferences": {
                     "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
@@ -144,8 +129,7 @@
               },
               {
                 "source": {
-                  "name": "OrderTimestamp",
-                  "type": "String",
+                  "name": "OrderDate",
                   "physicalType": "String"
                 },
                 "sink": {
@@ -190,33 +174,18 @@
         "type": "Copy",
         "typeProperties": {
           "source": {
-            "type": "DelimitedTextSource",
-            "formatSettings": {
-              "type": "DelimitedTextReadSettings"
-            },
+            "type": "LakehouseTableSource",
             "additionalColumns": [
               {
                 "name": "SourceFileName",
-                "value": "$$FILENAME"
+                "value": "supply_chain"
               }
             ],
-            "storeSettings": {
-              "type": "AzureBlobStorageReadSettings",
-              "recursive": true,
-              "enablePartitionDiscovery": false
-            },
             "datasetSettings": {
-              "type": "DelimitedText",
+              "type": "LakehouseTable",
               "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "demo",
-                  "fileName": "supply_chain.csv"
-                },
-                "columnDelimiter": ";",
-                "quoteChar": "\"",
-                "escapeChar": "\\",
-                "firstRowAsHeader": true
+                "schema": "dbo",
+                "table": "supply_chain"
               },
               "schema": [],
               "connectionSettings": {
@@ -224,9 +193,9 @@
                 "properties": {
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "artifactId": "",
+                    "artifactId": "405d4d91-239c-ac27-4907-39332e9b7f6e",
                     "workspaceId": "00000000-0000-0000-0000-000000000000",
-                    "rootFolder": "Files"
+                    "rootFolder": "Tables"
                   },
                   "externalReferences": {
                     "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
@@ -259,12 +228,12 @@
               },
               "schema": [],
               "connectionSettings": {
-                "name": "wh_demo",
+                "name": "wh_demo_04",
                 "properties": {
                   "type": "DataWarehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+                    "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
                     "workspaceId": "00000000-0000-0000-0000-000000000000"
                   },
                   "externalReferences": {
@@ -377,8 +346,7 @@
               },
               {
                 "source": {
-                  "name": "OrderTimestamp",
-                  "type": "String",
+                  "name": "OrderDate",
                   "physicalType": "String"
                 },
                 "sink": {
@@ -389,8 +357,7 @@
               },
               {
                 "source": {
-                  "name": "DeliveryTimestamp",
-                  "type": "String",
+                  "name": "DeliveryDate",
                   "physicalType": "String"
                 },
                 "sink": {
@@ -433,33 +400,18 @@
         "type": "Copy",
         "typeProperties": {
           "source": {
-            "type": "DelimitedTextSource",
-            "formatSettings": {
-              "type": "DelimitedTextReadSettings"
-            },
+            "type": "LakehouseTableSource",
             "additionalColumns": [
               {
                 "name": "SourceFileName",
-                "value": "$$FILENAME"
+                "value": "production"
               }
             ],
-            "storeSettings": {
-              "type": "AzureBlobStorageReadSettings",
-              "recursive": true,
-              "enablePartitionDiscovery": false
-            },
             "datasetSettings": {
-              "type": "DelimitedText",
+              "type": "LakehouseTable",
               "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "demo",
-                  "fileName": "production.csv"
-                },
-                "columnDelimiter": ";",
-                "quoteChar": "\"",
-                "escapeChar": "\\",
-                "firstRowAsHeader": true
+                "schema": "dbo",
+                "table": "production"
               },
               "schema": [],
               "connectionSettings": {
@@ -467,9 +419,9 @@
                 "properties": {
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000",
-                    "rootFolder": "Files"
+                    "artifactId": "58aebfb8-fbba-4664-b42d-e39de7fe64d4",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681",
+                    "rootFolder": "Tables"
                   },
                   "externalReferences": {
                     "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
@@ -495,13 +447,13 @@
               },
               "schema": [],
               "connectionSettings": {
-                "name": "wh_demo",
+                "name": "wh_demo_04",
                 "properties": {
                   "type": "DataWarehouse",
                   "typeProperties": {
-                    "artifactId": "",
-                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                    "artifactId": "ce0a493b-7f62-4c13-bd57-4ea3d7643d6e",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681"
                   },
                   "externalReferences": {
                     "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
@@ -613,8 +565,7 @@
               },
               {
                 "source": {
-                  "name": "ProductionTimestamp",
-                  "type": "String",
+                  "name": "ProductionDate",
                   "physicalType": "String"
                 },
                 "sink": {
@@ -651,6 +602,8 @@
           "secureOutput": false
         },
         "name": "production2stg",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": []
       },
       {
@@ -688,12 +641,12 @@
           }
         },
         "connectionSettings": {
-          "name": "wh_demo",
+          "name": "wh_demo_04",
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "",
-              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
               "workspaceId": "00000000-0000-0000-0000-000000000000"
             },
             "externalReferences": {
@@ -754,12 +707,12 @@
           }
         },
         "connectionSettings": {
-          "name": "wh_demo",
+          "name": "wh_demo_04",
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "",
-              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
               "workspaceId": "00000000-0000-0000-0000-000000000000"
             },
             "externalReferences": {
@@ -820,12 +773,12 @@
           }
         },
         "connectionSettings": {
-          "name": "wh_demo",
+          "name": "wh_demo_04",
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "",
-              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-e4hs4hl5gwlu5eu2l4aiyzwreq.datawarehouse.fabric.microsoft.com",
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
               "workspaceId": "00000000-0000-0000-0000-000000000000"
             },
             "externalReferences": {

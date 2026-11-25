@@ -21,11 +21,10 @@ table bom
 		annotation SummarizationSetBy = Automatic
 
 	column QuantityPerUnit
-		dataType: int64
-		formatString: 0
+		dataType: string
 		lineageTag: c4ff5714-664b-4aa1-8ffe-808b587e449e
 		sourceLineageTag: QuantityPerUnit
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: QuantityPerUnit
 
 		annotation SummarizationSetBy = Automatic
@@ -40,8 +39,7 @@ table bom
 		annotation SummarizationSetBy = Automatic
 
 	column ValidFrom
-		dataType: dateTime
-		formatString: General Date
+		dataType: string
 		lineageTag: bd48e966-2130-4b7b-8cd6-3fe0bc8e9e37
 		sourceLineageTag: ValidFrom
 		summarizeBy: none
@@ -50,8 +48,7 @@ table bom
 		annotation SummarizationSetBy = Automatic
 
 	column ValidTo
-		dataType: dateTime
-		formatString: General Date
+		dataType: string
 		lineageTag: 0d72ee7b-901a-491b-bc0a-a87bc1b5c726
 		sourceLineageTag: ValidTo
 		summarizeBy: none

@@ -164,24 +164,17 @@ table FactSupplyChain
 
 		annotation SummarizationSetBy = Automatic
 
-	column _xxx_
+	column LeadTimeDays
 		dataType: decimal
-		lineageTag: b9f53368-514b-4d9b-924d-e10ba2738c0b
-		sourceLineageTag: AvgLeadTimeDays
-		summarizeBy: average
-		sourceColumn: AvgLeadTimeDays
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: f25ba813-7555-4a8d-8451-9960beb66292
+		sourceLineageTag: LeadTimeDays
+		summarizeBy: sum
+		sourceColumn: LeadTimeDays
 
-		changedProperty = IsHidden
+		annotation SummarizationSetBy = Automatic
 
-		changedProperty = FormatString
-
-		changedProperty = SummarizeBy
-
-		changedProperty = Name
-
-		annotation SummarizationSetBy = User
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"de"}
 
 	partition FactSupplyChain = entity
 		mode: directLake
@@ -189,3 +182,4 @@ table FactSupplyChain
 			entityName: FactSupplyChain
 			schemaName: gold
 			expressionSource: 'DirectLake - wh_demo'
+
