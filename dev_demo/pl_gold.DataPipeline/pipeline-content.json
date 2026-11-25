@@ -1,0 +1,186 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[gold].[sp_Load_Dimensions]"
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_load_dim",
+        "dependsOn": []
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[gold].[sp_Load_Fact_Orders]"
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_load_factOrders",
+        "dependsOn": [
+          {
+            "activity": "sp_load_dim",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[gold].[sp_Load_FactBOM]"
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "ce0a493b-7f62-4c13-bd57-4ea3d7643d6e",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_load_factBOM",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [
+          {
+            "activity": "sp_load_dim",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[gold].[sp_Load_FactSupplyChain]"
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_load_fact_sc",
+        "dependsOn": [
+          {
+            "activity": "sp_load_dim",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[gold].[sp_Load_Fact_Production]"
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_laod_fact_prod",
+        "dependsOn": [
+          {
+            "activity": "sp_load_dim",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

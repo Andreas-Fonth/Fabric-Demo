@@ -1,0 +1,809 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "additionalColumns": [
+              {
+                "name": "SourceFileName",
+                "value": "orders"
+              }
+            ],
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "order"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "lh_demo",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "58aebfb8-fbba-4664-b42d-e39de7fe64d4",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681",
+                    "rootFolder": "Tables"
+                  },
+                  "externalReferences": {
+                    "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "truncate table stg.orders",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {
+              "defaultValues": [
+                {
+                  "columnName": "SourceFileName",
+                  "defaultValue": "$$FILENAME"
+                }
+              ]
+            },
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "stg",
+                "table": "orders"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_demo_04",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "ce0a493b-7f62-4c13-bd57-4ea3d7643d6e",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681"
+                  },
+                  "externalReferences": {
+                    "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "OrderID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "OrderID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "CustomerID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "CustomerID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "ProductID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProductID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "Quantity",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "Quantity",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "OrderDate",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "OrderDate",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "SourceFileName",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "SourceFileName",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "orders2stg",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "additionalColumns": [
+              {
+                "name": "SourceFileName",
+                "value": "supply_chain"
+              }
+            ],
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "supply_chain"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "lh_demo",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "405d4d91-239c-ac27-4907-39332e9b7f6e",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "externalReferences": {
+                    "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "truncate table stg.supply_chain",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {
+              "defaultValues": [
+                {
+                  "columnName": "SourceFileName",
+                  "defaultValue": "$$FILENAME"
+                }
+              ]
+            },
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "stg",
+                "table": "supply_chain"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_demo_04",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "ShipmentID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ShipmentID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "ProductID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProductID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "Supplier",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "Supplier",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "Warehouse",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "Warehouse",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "OrderedQuantity",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "OrderedQuantity",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "LeadTimeDays",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "LeadTimeDays",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "DelayDays",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "DelayDays",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "OrderStatus",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "OrderStatus",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "OrderDate",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "OrderDate",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "DeliveryDate",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "DeliveryDate",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "SourceFileName",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "SourceFileName",
+                  "physicalType": "varchar",
+                  "length": "255"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "supply_chain2stg",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "additionalColumns": [
+              {
+                "name": "SourceFileName",
+                "value": "production"
+              }
+            ],
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "production"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "lh_demo",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "58aebfb8-fbba-4664-b42d-e39de7fe64d4",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681",
+                    "rootFolder": "Tables"
+                  },
+                  "externalReferences": {
+                    "connection": "fbad8e00-bfd1-415a-a352-1c63e9ad5ef4"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "truncate table stg. production",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "stg",
+                "table": "production"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_demo_04",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "ce0a493b-7f62-4c13-bd57-4ea3d7643d6e",
+                    "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "d48fd0db-fadc-4e6a-bdd3-bd924b597681"
+                  },
+                  "externalReferences": {
+                    "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "ProductionID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProductionID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "ProductID",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProductID",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "Plant",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "Plant",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "Machine",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "Machine",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "PlannedQuantity",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "PlannedQuantity",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "ProducedQuantity",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProducedQuantity",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "DefectiveQuantity",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "DefectiveQuantity",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "DurationHours",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "DurationHours",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "ProductionDate",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "ProductionDate",
+                  "physicalType": "varchar",
+                  "length": "8000"
+                }
+              },
+              {
+                "source": {
+                  "name": "SourceFileName",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "SourceFileName",
+                  "physicalType": "varchar",
+                  "length": "255"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "production2stg",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[meta].[sp_LogTableLoad]",
+          "storedProcedureParameters": {
+            "ExecutionID": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "LoadType": {
+              "value": "FULL",
+              "type": "String"
+            },
+            "Status": {
+              "value": "SUCCESS",
+              "type": "String"
+            },
+            "TargetSchema": {
+              "value": "stg",
+              "type": "String"
+            },
+            "TargetTable": {
+              "value": "orders",
+              "type": "String"
+            },
+            "UpdateIngestionColumn": {
+              "value": "true",
+              "type": "Boolean"
+            }
+          }
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_LogTableLoad_1",
+        "dependsOn": [
+          {
+            "activity": "orders2stg",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[meta].[sp_LogTableLoad]",
+          "storedProcedureParameters": {
+            "ExecutionID": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "LoadType": {
+              "value": "FULL",
+              "type": "String"
+            },
+            "Status": {
+              "value": "SUCCESS",
+              "type": "String"
+            },
+            "TargetSchema": {
+              "value": "stg",
+              "type": "String"
+            },
+            "TargetTable": {
+              "value": "supply_chain",
+              "type": "String"
+            },
+            "UpdateIngestionColumn": {
+              "value": "true",
+              "type": "Boolean"
+            }
+          }
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_LogTableLoad_3",
+        "dependsOn": [
+          {
+            "activity": "supply_chain2stg",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[meta].[sp_LogTableLoad]",
+          "storedProcedureParameters": {
+            "ExecutionID": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "String"
+            },
+            "LoadType": {
+              "value": "FULL",
+              "type": "String"
+            },
+            "Status": {
+              "value": "SUCCESS",
+              "type": "String"
+            },
+            "TargetSchema": {
+              "value": "stg",
+              "type": "String"
+            },
+            "TargetTable": {
+              "value": "production",
+              "type": "String"
+            },
+            "UpdateIngestionColumn": {
+              "value": "true",
+              "type": "Boolean"
+            }
+          }
+        },
+        "connectionSettings": {
+          "name": "wh_demo_04",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "fba79f73-3e18-a630-d241-0591d1e9312a",
+              "endpoint": "cj236xyunrauxajdvx7xxjfz6i-3pii7vg47jve5potxwjewwlwqe.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "4fb51c59-b66c-4dc9-98ea-760e70ddc971"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "sp_LogTableLoad_4",
+        "dependsOn": [
+          {
+            "activity": "production2stg",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

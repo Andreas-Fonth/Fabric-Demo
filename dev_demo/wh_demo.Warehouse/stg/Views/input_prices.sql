@@ -1,0 +1,4 @@
+-- Auto Generated (Do not modify) D7853DF01CF8C4E8B8A5851B98CD845370FDB1DD509F6949846FD98520584D39
+CREATE VIEW stg.input_prices AS
+SELECT * FROM [lh_demo].[dbo].[inputpreise]
+;
